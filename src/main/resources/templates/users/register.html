@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+           background-color: #f8f9fa; /* Light gray background */
+      background-image: url('https://wallpaper.dog/large/5523640.png'); /* URL của hình nền */
+      background-size: cover; /* Đảm bảo hình nền sẽ được hiển thị đầy đủ kích thước */
+        }
+        .register-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        .register-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #007bff; /* Blue title */
+            font-weight: bold;
+        }
+        .form-control {
+            border: 1px solid #ced4da; /* Gray border for inputs */
+            border-radius: 8px;
+            padding: 12px;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #007bff; /* Blue border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Blue shadow on focus */
+        }
+        .btn-primary {
+            background-color: #007bff; /* Blue button */
+            border-color: #007bff; /* Blue border */
+            border-radius: 8px;
+            padding: 12px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3; /* Darker blue border on hover */
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+            color: #007bff; /* Blue link color */
+        }
+        .login-link a {
+            color: #007bff; /* Blue link color */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content" class="container mt-5">
+    <div class="register-container">
+        <h1 class="register-title">Register</h1>
+        <form th:action="@{/register}" method="post">
+            <div th:if="${errors}" class="alert alert-danger justify-content-center"
+                 role="alert">
+                <ul>
+                    <li th:each="error : ${errors}" th:text="${error}" class="text-danger text-start"></li>
+                </ul>
+            </div>
+            <div class="mb-4">
+                <input type="email" class="form-control" id="email" name="email"
+                       placeholder="Enter your email">
+            </div>
+            <div class="mb-4">
+                <input type="text" class="form-control" id="username" name="username"
+                       placeholder="Enter your username">
+            </div>
+            <div class="mb-4">
+                <input type="password" class="form-control" id="password"
+                       name="password" placeholder="Enter your password">
+            </div>
+            <div class="mb-4">
+
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirm your password">
+                <small id="passwordError" class="text-danger"></small>
+            </div>
+            <div class="mb-4">
+                <input type="tel" class="form-control" id="phone" name="phone"
+                       placeholder="Enter your phone">
+            </div>
+            <div class="mb-4">
+                <input type="address" class="form-control" id="address" name="address"
+                       placeholder="Enter your address">
+            </div>
+            <div class="mb-4">
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                       placeholder="Enter your address">
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+                <p class="login-link">Already have an account? <a th:href="@{/login}">Login in</a></p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+<script>
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const passwordError = document.getElementById('passwordError');
+
+    confirmPasswordInput.addEventListener('input', function() {
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            passwordError.textContent = 'Passwords do not match.';
+        } else {
+            passwordError.textContent = '';
+        }
+    });
+</script>
